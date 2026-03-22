@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.modal_heading {
+    @apply text-2xl font-bold mb-1 text-gray-900 dark:text-white;
+}
+
+.modal_paragraph {
+    @apply text-base mb-5 text-gray-900 dark:text-white;
+}
+
+.modal_paragraph a {
+    @apply text-blue-600 dark:text-blue-400 hover:underline;
+}
+
+.social-media-btn {
+    @apply text-gray-500 dark:text-gray-400
+           hover:text-blue-600 dark:hover:text-blue-400
+           transition-colors
+           mx-3
+           text-2xl;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-media-btn svg {
+  width: 1em;
+  height: 1em;
+}
