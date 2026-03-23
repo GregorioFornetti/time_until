@@ -20,7 +20,7 @@ if (localStorage.locale) {
 
 <template>
   <div class="main-container">
-    <p>OI</p>
+    <router-view />
   </div>
 </template>
 
