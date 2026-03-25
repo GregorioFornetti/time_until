@@ -12,6 +12,11 @@ const props = defineProps<{
   closeModal?: () => void
 }>()
 
+const errors = ref({
+  title: '',
+  endDate: ''
+})
+
 const title = ref(props.titleInitText || '')
 const description = ref(props.descriptionInitText || '')
 const startDate = ref(props.startDateInit || '')
@@ -19,7 +24,7 @@ const endDate = ref(props.endDateInit || '')
 const formRef = ref<HTMLFormElement | null>(null)
 
 const handleSubmit = () => {
-    // This only runs if validation passes
+    
     console.log({
         title: title.value,
         description: description.value,
@@ -27,7 +32,12 @@ const handleSubmit = () => {
         endDate: endDate.value
     })
 
-    // emit or API call here
+    errors.value.title =  !title.value.trim() ? 'Title is required' : ''
+    errors.value.endDate = !endDate.value.trim() ? 'End date is required' : ''
+
+    console.log(errors.value)
+
+    if (errors.value.title || errors.value.endDate) return
 }
 </script>
 
@@ -40,21 +50,21 @@ const handleSubmit = () => {
         <template #body>
             <form ref="formRef" @submit.prevent="handleSubmit">
                 <!-- Title -->
-                <div>
+                <div class="mt-4">
                     <label class="block mb-1 text-lg font-medium text-gray-300">
-                        Title
+                        Title <span class="text-red-500">*</span>
                     </label>
                     <input
                         type="text"
                         v-model="title"
                         placeholder="Enter event title"
-                        class="w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        required
+                        :class="['w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500', errors.title ? 'border-red-500 ring-red-500' : '']"
                     />
+                    <p v-if="errors.title" class="mt-1 text-sm text-red-500">{{ errors.title }}</p>
                 </div>
 
                 <!-- Description -->
-                <div>
+                <div class="mt-4">
                     <label class="block mb-1 text-lg font-medium text-gray-300">
                         Description
                     </label>
@@ -67,7 +77,7 @@ const handleSubmit = () => {
                 </div>
 
                 <!-- Start Date -->
-                <div>
+                <div class="mt-4">
                     <label class="block mb-1 text-lg font-medium text-gray-300">
                         Start Date
                     </label>
@@ -79,16 +89,16 @@ const handleSubmit = () => {
                 </div>
 
                 <!-- End Date -->
-                <div>
+                <div class="mt-4">
                     <label class="block mb-1 text-lg font-medium text-gray-300">
-                        End Date
+                        End Date <span class="text-red-500">*</span>
                     </label>
                     <input
                         type="datetime-local"
                         v-model="endDate"
-                        class="px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        required
+                        :class="['px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500', errors.endDate ? 'border-red-500 ring-red-500' : '']"
                     />
+                    <p v-if="errors.endDate" class="mt-1 text-sm text-red-500">{{ errors.endDate }}</p>
                 </div>
             </form>
         </template>
