@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BaseModal from './BaseModal.vue'
+import { ref } from 'vue';
 
 const props = defineProps<{
   type: 'create' | 'edit'
@@ -10,6 +11,24 @@ const props = defineProps<{
   endDateInit?: string
   closeModal?: () => void
 }>()
+
+const title = ref(props.titleInitText || '')
+const description = ref(props.descriptionInitText || '')
+const startDate = ref(props.startDateInit || '')
+const endDate = ref(props.endDateInit || '')
+const formRef = ref<HTMLFormElement | null>(null)
+
+const handleSubmit = () => {
+    // This only runs if validation passes
+    console.log({
+        title: title.value,
+        description: description.value,
+        startDate: startDate.value,
+        endDate: endDate.value
+    })
+
+    // emit or API call here
+}
 </script>
 
 <template>
@@ -19,55 +38,59 @@ const props = defineProps<{
         :closeModal="closeModal"
     >
         <template #body>
-            <!-- Title -->
-            <div>
-                <label class="block mb-1 text-lg font-medium text-gray-300">
-                    Title
-                </label>
-                <input
-                    type="text"
-                    :value="titleInitText"
-                    placeholder="Enter event title"
-                    class="w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-            </div>
+            <form ref="formRef" @submit.prevent="handleSubmit">
+                <!-- Title -->
+                <div>
+                    <label class="block mb-1 text-lg font-medium text-gray-300">
+                        Title
+                    </label>
+                    <input
+                        type="text"
+                        v-model="title"
+                        placeholder="Enter event title"
+                        class="w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        required
+                    />
+                </div>
 
-            <!-- Description -->
-            <div>
-                <label class="block mb-1 text-lg font-medium text-gray-300">
-                    Description
-                </label>
-                <textarea
-                    :value="descriptionInitText"
-                    rows="3"
-                    placeholder="Enter event description"
-                    class="w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                ></textarea>
-            </div>
+                <!-- Description -->
+                <div>
+                    <label class="block mb-1 text-lg font-medium text-gray-300">
+                        Description
+                    </label>
+                    <textarea
+                        v-model="description"
+                        rows="3"
+                        placeholder="Enter event description"
+                        class="w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    ></textarea>
+                </div>
 
-            <!-- Start Date -->
-            <div>
-                <label class="block mb-1 text-lg font-medium text-gray-300">
-                    Start Date
-                </label>
-                <input
-                    type="datetime-local"
-                    :value="startDateInit"
-                    class="px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-            </div>
+                <!-- Start Date -->
+                <div>
+                    <label class="block mb-1 text-lg font-medium text-gray-300">
+                        Start Date
+                    </label>
+                    <input
+                        v-model="startDate"
+                        type="datetime-local"
+                        class="px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                </div>
 
-            <!-- End Date -->
-            <div>
-                <label class="block mb-1 text-lg font-medium text-gray-300">
-                    End Date
-                </label>
-                <input
-                    type="datetime-local"
-                    :value="endDateInit"
-                    class="px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-            </div>
+                <!-- End Date -->
+                <div>
+                    <label class="block mb-1 text-lg font-medium text-gray-300">
+                        End Date
+                    </label>
+                    <input
+                        type="datetime-local"
+                        v-model="endDate"
+                        class="px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        required
+                    />
+                </div>
+            </form>
         </template>
 
         <template #footer>
@@ -80,7 +103,7 @@ const props = defineProps<{
                     Cancel
                 </button>
                 <button
-                    type="submit"
+                    type="button" @click="formRef?.requestSubmit()"
                     class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-500 transition"
                 >
                     {{ props.type === 'create' ? 'Create' : 'Save' }}
