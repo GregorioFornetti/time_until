@@ -1,5 +1,22 @@
 {
     "router": {
         "title": "Time until"
+    },
+
+    "modal": {
+        "createTitle": "Create Event",
+        "editTitle": "Edit Event",
+        "title": "Title",
+        "titlePlaceholder": "Enter event title",
+        "description": "Description",
+        "descriptionPlaceholder": "Enter event description (optional)",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "save": "Save",
+        "create": "Create",
+        "cancel": "Cancel",
+        "endDateRequiredError": "End date is required",
+        "endDateAfterStartError": "End date must be after start date",
+        "titleRequiredError": "Title is required"
     }
 }
