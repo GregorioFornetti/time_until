@@ -1,5 +1,22 @@
 {
     "router": {
         "title": "Tempo até"
+    },
+
+    "modal": {
+        "createTitle": "Criar Evento",
+        "editTitle": "Editar Evento",
+        "title": "Título",
+        "titlePlaceholder": "Digite o título do evento",
+        "description": "Descrição",
+        "descriptionPlaceholder": "Digite a descrição do evento (opcional)",
+        "startDate": "Data de Início",
+        "endDate": "Data de Término",
+        "save": "Salvar",
+        "create": "Criar",
+        "cancel": "Cancelar",
+        "endDateRequiredError": "Data de término é obrigatória",
+        "endDateAfterStartError": "Data de término deve ser após a data de início",
+        "titleRequiredError": "Título é obrigatório"
     }
 }
