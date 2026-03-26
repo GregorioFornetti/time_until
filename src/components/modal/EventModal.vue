@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import BaseModal from './BaseModal.vue'
 import { ref } from 'vue';
+import { router } from '../../plugins/router';
+import { i18n } from '../../plugins/i18n';
 
 const props = defineProps<{
   type: 'create' | 'edit'
@@ -32,18 +34,30 @@ const handleSubmit = () => {
         endDate: endDate.value
     })
 
-    errors.value.title =  !title.value.trim() ? 'Title is required' : ''
-    errors.value.endDate = !endDate.value.trim() ? 'End date is required' : ''
-
-    console.log(errors.value)
+    errors.value.title =  !title.value.trim() ? i18n.t('modal.titleRequiredError') : ''
+    errors.value.endDate = !endDate.value.trim() ? i18n.t('modal.endDateRequiredError') : ''
 
     if (errors.value.title || errors.value.endDate) return
+
+    if (startDate.value && endDate.value && new Date(startDate.value) > new Date(endDate.value)) {
+        errors.value.endDate = i18n.t('modal.endDateAfterStartError')
+        return
+    }
+
+    // Redirect to event page with event data as query params (for demo purposes)
+    const queryParams = new URLSearchParams({
+        title: title.value,
+        description: description.value,
+        startDate: startDate.value,
+        endDate: endDate.value
+    }).toString()
+    router.push(`/event?${queryParams}`)
 }
 </script>
 
 <template>
     <BaseModal
-        :title="props.type === 'create' ? 'Create Event' : 'Edit Event'"
+        :title="props.type === 'create' ? i18n.t('modal.createTitle') : i18n.t('modal.editTitle')"
         :show="show"
         :closeModal="closeModal"
     >
@@ -52,12 +66,12 @@ const handleSubmit = () => {
                 <!-- Title -->
                 <div class="mt-4">
                     <label class="block mb-1 text-lg font-medium text-gray-300">
-                        Title <span class="text-red-500">*</span>
+                        {{ $t('modal.title') }} <span class="text-red-500">*</span>
                     </label>
                     <input
                         type="text"
                         v-model="title"
-                        placeholder="Enter event title"
+                        :placeholder="i18n.t('modal.titlePlaceholder')"
                         :class="['w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500', errors.title ? 'border-red-500 ring-red-500' : '']"
                     />
                     <p v-if="errors.title" class="mt-1 text-sm text-red-500">{{ errors.title }}</p>
@@ -66,12 +80,12 @@ const handleSubmit = () => {
                 <!-- Description -->
                 <div class="mt-4">
                     <label class="block mb-1 text-lg font-medium text-gray-300">
-                        Description
+                        {{ $t('modal.description') }}
                     </label>
                     <textarea
                         v-model="description"
                         rows="3"
-                        placeholder="Enter event description"
+                        :placeholder="i18n.t('modal.descriptionPlaceholder')"
                         class="w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     ></textarea>
                 </div>
@@ -79,7 +93,7 @@ const handleSubmit = () => {
                 <!-- Start Date -->
                 <div class="mt-4">
                     <label class="block mb-1 text-lg font-medium text-gray-300">
-                        Start Date
+                        {{ $t('modal.startDate') }}
                     </label>
                     <input
                         v-model="startDate"
@@ -91,7 +105,7 @@ const handleSubmit = () => {
                 <!-- End Date -->
                 <div class="mt-4">
                     <label class="block mb-1 text-lg font-medium text-gray-300">
-                        End Date <span class="text-red-500">*</span>
+                        {{ $t('modal.endDate') }} <span class="text-red-500">*</span>
                     </label>
                     <input
                         type="datetime-local"
@@ -110,13 +124,13 @@ const handleSubmit = () => {
                     @click="closeModal?.()"
                     class="px-4 py-2 rounded-lg bg-gray-700 text-gray-200 hover:bg-gray-600 transition"
                 >
-                    Cancel
+                    {{ i18n.t('modal.cancel') }}
                 </button>
                 <button
                     type="button" @click="formRef?.requestSubmit()"
                     class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-500 transition"
                 >
-                    {{ props.type === 'create' ? 'Create' : 'Save' }}
+                    {{ props.type === 'create' ? i18n.t('modal.create') : i18n.t('modal.save') }}
                 </button>
             </div>
         </template>
