@@ -16,7 +16,7 @@ const props = defineProps<{
 
 const errors = ref({
   title: '',
-  endDate: ''
+  date: ''
 })
 
 const title = ref(props.titleInitText || '')
@@ -35,12 +35,12 @@ const handleSubmit = () => {
     })
 
     errors.value.title =  !title.value.trim() ? i18n.t('modal.titleRequiredError') : ''
-    errors.value.endDate = !endDate.value.trim() ? i18n.t('modal.endDateRequiredError') : ''
+    errors.value.date = (!endDate.value.trim() && !startDate.value.trim()) ? i18n.t('modal.dateRequiredError') : ''
 
-    if (errors.value.title || errors.value.endDate) return
+    if (errors.value.title || errors.value.date) return
 
     if (startDate.value && endDate.value && new Date(startDate.value) > new Date(endDate.value)) {
-        errors.value.endDate = i18n.t('modal.endDateAfterStartError')
+        errors.value.date = i18n.t('modal.endDateAfterStartError')
         return
     }
 
@@ -93,26 +93,27 @@ const handleSubmit = () => {
                 <!-- Start Date -->
                 <div class="mt-4">
                     <label class="block mb-1 text-lg font-medium text-gray-300">
-                        {{ $t('modal.startDate') }}
+                        {{ $t('modal.startDate') }} <span class="text-red-500">**</span>
                     </label>
                     <input
                         v-model="startDate"
                         type="datetime-local"
-                        class="px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        :class="['px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500', errors.date ? 'border-red-500 ring-red-500' : '']"
                     />
+                    <p v-if="errors.date" class="mt-1 text-sm text-red-500">{{ errors.date }}</p>
                 </div>
 
                 <!-- End Date -->
                 <div class="mt-4">
                     <label class="block mb-1 text-lg font-medium text-gray-300">
-                        {{ $t('modal.endDate') }} <span class="text-red-500">*</span>
+                        {{ $t('modal.endDate') }} <span class="text-red-500">**</span>
                     </label>
                     <input
                         type="datetime-local"
                         v-model="endDate"
-                        :class="['px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500', errors.endDate ? 'border-red-500 ring-red-500' : '']"
+                        :class="['px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500', errors.date ? 'border-red-500 ring-red-500' : '']"
                     />
-                    <p v-if="errors.endDate" class="mt-1 text-sm text-red-500">{{ errors.endDate }}</p>
+                    <p v-if="errors.date" class="mt-1 text-sm text-red-500">{{ errors.date }}</p>
                 </div>
             </form>
         </template>
