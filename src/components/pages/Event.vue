@@ -103,7 +103,7 @@ function addDotEveryThreeDigits(num: string) {
 
     <!-- Title -->
     <h1 class="text-3xl font-bold mb-2">{{ title }}</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6">{{ description }}</p>
+    <p class="text-gray-600 dark:text-gray-300 mb-6">{{ description }}</p>
 
     <div class="flex justify-center items-center gap-6 mb-6 flex-wrap">
       <div class="flex items-center gap-2">
@@ -139,28 +139,34 @@ function addDotEveryThreeDigits(num: string) {
     <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
       <!-- Elapsed -->
       <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6 transition-colors duration-500">
+        <h2 class="text-xl font-semibold mb-1">Start date</h2>
+        <p class="mb-4 text-gray-600 dark:text-gray-300">{{ startDate.toLocaleString() }}</p>
+
         <h2 class="text-xl font-semibold mb-3">Elapsed Time</h2>
-        <p class="mb-2">{{ formatDuration(elapsedTime) }} passed</p>
+        <p class="mb-2 text-gray-600 dark:text-gray-300">{{ formatDuration(elapsedTime) }} passed</p>
         <p class="mb-2 text-blue-600 font-medium">
           {{ ((elapsedTime / totalTime) * 100).toFixed(2) }}%
         </p>
 
         <p class="text-lg font-semibold mt-4 mb-1">Total elapsed time</p>
 
-        <div class="text-gray-700 dark:text-gray-300 space-y-1">
-          <p><b>{{ getTotalYears(elapsedTime) }}</b> years</p>
-          <p><b>{{ getTotalMonths(elapsedTime) }}</b> months</p>
-          <p><b>{{ getTotalDays(elapsedTime) }}</b> days</p>
-          <p><b>{{ getTotalHours(elapsedTime) }}</b> hours</p>
-          <p><b>{{ getTotalMinutes(elapsedTime) }}</b> minutes</p>
-          <p><b>{{ getTotalSeconds(elapsedTime) }}</b> seconds</p>
+        <div class="text-gray-600 dark:text-gray-300 space-y-1">
+          <p><strong>{{ getTotalYears(elapsedTime) }}</strong> years</p>
+          <p><strong>{{ getTotalMonths(elapsedTime) }}</strong> months</p>
+          <p><strong>{{ getTotalDays(elapsedTime) }}</strong> days</p>
+          <p><strong>{{ getTotalHours(elapsedTime) }}</strong> hours</p>
+          <p><strong>{{ getTotalMinutes(elapsedTime) }}</strong> minutes</p>
+          <p><strong>{{ getTotalSeconds(elapsedTime) }}</strong> seconds</p>
         </div>
       </div>
 
       <!-- Remaining -->
       <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6 transition-colors duration-500">
+        <h2 class="text-xl font-semibold mb-1">End date</h2>
+        <p class="mb-4 text-gray-600 dark:text-gray-300">{{ endDate.toLocaleString() }}</p>
+
         <h2 class="text-xl font-semibold mb-3">Remaining Time</h2>
-        <p class="mb-2">{{ formatDuration(remainingTime) }} remaining</p>
+        <p class="mb-2 text-gray-600 dark:text-gray-300">{{ formatDuration(remainingTime) }} remaining</p>
         <p class="mb-2 text-green-600 font-medium">
           {{ ((remainingTime / totalTime) * 100).toFixed(2) }}%
         </p>
@@ -168,12 +174,12 @@ function addDotEveryThreeDigits(num: string) {
         <p class="text-lg font-semibold mt-4 mb-1">Total remaining time</p>
 
         <div class="text-gray-700 dark:text-gray-300 space-y-1">
-          <p><b>{{ getTotalYears(remainingTime) }}</b> years</p>
-          <p><b>{{ getTotalMonths(remainingTime) }}</b> months</p>
-          <p><b>{{ getTotalDays(remainingTime) }}</b> days</p>
-          <p><b>{{ getTotalHours(remainingTime) }}</b> hours</p>
-          <p><b>{{ getTotalMinutes(remainingTime) }}</b> minutes</p>
-          <p><b>{{ getTotalSeconds(remainingTime) }}</b> seconds</p>
+          <p><strong>{{ getTotalYears(remainingTime) }}</strong> years</p>
+          <p><strong>{{ getTotalMonths(remainingTime) }}</strong> months</p>
+          <p><strong>{{ getTotalDays(remainingTime) }}</strong> days</p>
+          <p><strong>{{ getTotalHours(remainingTime) }}</strong> hours</p>
+          <p><strong>{{ getTotalMinutes(remainingTime) }}</strong> minutes</p>
+          <p><strong>{{ getTotalSeconds(remainingTime) }}</strong> seconds</p>
         </div>
       </div>
 
