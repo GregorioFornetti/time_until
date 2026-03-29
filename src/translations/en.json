@@ -15,7 +15,7 @@
         "save": "Save",
         "create": "Create",
         "cancel": "Cancel",
-        "endDateRequiredError": "End date is required",
+        "dateRequiredError": "Start date or end date is required",
         "endDateAfterStartError": "End date must be after start date",
         "titleRequiredError": "Title is required"
     }
