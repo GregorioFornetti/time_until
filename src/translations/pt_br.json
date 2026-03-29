@@ -15,7 +15,7 @@
         "save": "Salvar",
         "create": "Criar",
         "cancel": "Cancelar",
-        "endDateRequiredError": "Data de término é obrigatória",
+        "dateRequiredError": "Data de término ou de início é obrigatória",
         "endDateAfterStartError": "Data de término deve ser após a data de início",
         "titleRequiredError": "Título é obrigatório"
     }
