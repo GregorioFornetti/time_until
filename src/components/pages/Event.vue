@@ -128,15 +128,17 @@ function addDotEveryThreeDigits(num: string) {
     </div>
 
     <!-- Progress -->
-    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-5 overflow-hidden">
-      <div
-        class="h-full bg-blue-500 transition-all duration-500"
-        :style="{ width: progress * 100 + '%' }"
-      ></div>
+    <div v-if="!isNaN(startDate.getTime()) && !isNaN(endDate.getTime())" class="mb-8">
+      <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-5 overflow-hidden">
+        <div
+          class="h-full bg-blue-500 transition-all duration-500"
+          :style="{ width: progress * 100 + '%' }"
+        ></div>
+      </div>
+      <p class="mt-2 font-medium">
+        {{ (progress * 100).toFixed(2) }}%
+      </p>
     </div>
-    <p class="mt-2 font-medium">
-      {{ (progress * 100).toFixed(2) }}%
-    </p>
 
     <div
       class="mt-8 grid gap-6 justify-items-center"
@@ -154,7 +156,7 @@ function addDotEveryThreeDigits(num: string) {
 
         <h2 class="text-xl font-semibold mb-3">Elapsed Time</h2>
         <p class="mb-2 text-gray-600 dark:text-gray-300">{{ formatDuration(elapsedTime) }} passed</p>
-        <p class="mb-2 text-blue-600 font-medium">
+        <p class="mb-2 text-blue-600 font-medium" v-if="!isNaN(endDate.getTime())">
           {{ ((elapsedTime / totalTime) * 100).toFixed(2) }}%
         </p>
 
@@ -177,7 +179,7 @@ function addDotEveryThreeDigits(num: string) {
 
         <h2 class="text-xl font-semibold mb-3">Remaining Time</h2>
         <p class="mb-2 text-gray-600 dark:text-gray-300">{{ formatDuration(remainingTime) }} remaining</p>
-        <p class="mb-2 text-green-600 font-medium">
+        <p class="mb-2 text-green-600 font-medium" v-if="!isNaN(startDate.getTime())">
           {{ ((remainingTime / totalTime) * 100).toFixed(2) }}%
         </p>
 
