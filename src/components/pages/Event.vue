@@ -7,6 +7,8 @@ const description = (router.currentRoute.value.query.description as string) || '
 const startDate = new Date(router.currentRoute.value.query.startDate as string)
 const endDate = new Date(router.currentRoute.value.query.endDate as string)
 
+
+
 const curDate = ref(new Date())
 const sync = ref(true)
 
@@ -136,9 +138,17 @@ function addDotEveryThreeDigits(num: string) {
       {{ (progress * 100).toFixed(2) }}%
     </p>
 
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div
+      class="mt-8 grid gap-6 justify-items-center"
+      :class="[
+        (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime()))
+          ? 'grid-cols-1 md:grid-cols-2'
+          : 'grid-cols-1'
+      ]"
+    >
+
       <!-- Elapsed -->
-      <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6 transition-colors duration-500">
+      <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6 transition-colors duration-500" v-if="!isNaN(startDate.getTime())">
         <h2 class="text-xl font-semibold mb-1">Start date</h2>
         <p class="mb-4 text-gray-600 dark:text-gray-300">{{ startDate.toLocaleString() }}</p>
 
@@ -161,7 +171,7 @@ function addDotEveryThreeDigits(num: string) {
       </div>
 
       <!-- Remaining -->
-      <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6 transition-colors duration-500">
+      <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6 transition-colors duration-500" v-if="!isNaN(endDate.getTime())">
         <h2 class="text-xl font-semibold mb-1">End date</h2>
         <p class="mb-4 text-gray-600 dark:text-gray-300">{{ endDate.toLocaleString() }}</p>
 
