@@ -3,7 +3,7 @@ import { router } from '../../plugins/router'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const title = (router.currentRoute.value.query.title as string) || 'No Title'
-const description = (router.currentRoute.value.query.description as string) || 'No Description'
+const description = router.currentRoute.value.query.description as string
 const startDate = new Date(router.currentRoute.value.query.startDate as string)
 const endDate = new Date(router.currentRoute.value.query.endDate as string)
 
@@ -104,8 +104,10 @@ function addDotEveryThreeDigits(num: string) {
               transition-colors duration-500">
 
     <!-- Title -->
-    <h1 class="text-3xl font-bold mb-2">{{ title }}</h1>
-    <p class="text-gray-600 dark:text-gray-300 mb-6">{{ description }}</p>
+    <div class="mb-6">
+      <h1 class="text-3xl font-bold mb-3">{{ title }}</h1>
+      <p class="text-gray-600 dark:text-gray-300" v-if="description">{{ description }}</p>
+    </div>
 
     <div class="flex justify-center items-center gap-6 mb-6 flex-wrap">
       <div class="flex items-center gap-2">
@@ -156,7 +158,7 @@ function addDotEveryThreeDigits(num: string) {
 
         <h2 class="text-xl font-semibold mb-3">Elapsed Time</h2>
         <p class="mb-2 text-gray-600 dark:text-gray-300">{{ formatDuration(elapsedTime) }} passed</p>
-        <p class="mb-2 text-blue-600 font-medium" v-if="!isNaN(endDate.getTime())">
+        <p class="mb-2 text-gray-600 dark:text-gray-300 font-medium" v-if="!isNaN(endDate.getTime())">
           {{ ((elapsedTime / totalTime) * 100).toFixed(2) }}%
         </p>
 
@@ -179,7 +181,7 @@ function addDotEveryThreeDigits(num: string) {
 
         <h2 class="text-xl font-semibold mb-3">Remaining Time</h2>
         <p class="mb-2 text-gray-600 dark:text-gray-300">{{ formatDuration(remainingTime) }} remaining</p>
-        <p class="mb-2 text-green-600 font-medium" v-if="!isNaN(startDate.getTime())">
+        <p class="mb-2 text-gray-600 dark:text-gray-300 font-medium" v-if="!isNaN(startDate.getTime())">
           {{ ((remainingTime / totalTime) * 100).toFixed(2) }}%
         </p>
 
