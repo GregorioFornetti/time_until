@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { i18n } from '../../plugins/i18n'
 import { router } from '../../plugins/router'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 
@@ -6,8 +7,6 @@ const title = (router.currentRoute.value.query.title as string) || 'No Title'
 const description = router.currentRoute.value.query.description as string
 const startDate = new Date(router.currentRoute.value.query.startDate as string)
 const endDate = new Date(router.currentRoute.value.query.endDate as string)
-
-
 
 const curDate = ref(new Date())
 const sync = ref(true)
@@ -54,46 +53,46 @@ function formatDuration(ms: number) {
   const minutes = Math.floor(seconds / 60)
   seconds %= 60
 
-  return `${years}y ${months}m ${days}d ${hours}h ${minutes}m ${seconds}s`
+  return `${years}${i18n.t('eventPage.yearAbv')} ${months}${i18n.t('eventPage.monthAbv')} ${days}${i18n.t('eventPage.dayAbv')} ${hours}${i18n.t('eventPage.hourAbv')} ${minutes}${i18n.t('eventPage.minuteAbv')} ${seconds}${i18n.t('eventPage.secondAbv')}`
 }
 
 function getTotalYears(ms: number) {
   const seconds = Math.floor(ms / 1000)
   const years = seconds / (365 * 24 * 3600)
-  return addDotEveryThreeDigits(years.toFixed(2))
+  return formatNumber(Number(years.toFixed(2)))
 }
 
 function getTotalMonths(ms: number) {
   const seconds = Math.floor(ms / 1000)
   const months = seconds / (30 * 24 * 3600)
-  return addDotEveryThreeDigits(months.toFixed(2))
+  return formatNumber(Number(months.toFixed(2)))
 }
 
 function getTotalDays(ms: number) {
   const seconds = Math.floor(ms / 1000)
   const days = seconds / (24 * 3600)
-  return addDotEveryThreeDigits(days.toFixed(2))
+  return formatNumber(Number(days.toFixed(2)))
 }
 
 function getTotalHours(ms: number) {
   const seconds = Math.floor(ms / 1000)
   const hours = Math.floor(seconds / 3600)
-  return addDotEveryThreeDigits(hours.toFixed(1))
+  return formatNumber(Number(hours.toFixed(1)))
 }
 
 function getTotalMinutes(ms: number) {
   const seconds = Math.floor(ms / 1000)
   const minutes = Math.floor(seconds / 60)
-  return addDotEveryThreeDigits(minutes.toString())
+  return formatNumber(minutes)
 }
 
 function getTotalSeconds(ms: number) {
   const seconds = Math.floor(ms / 1000)
-  return addDotEveryThreeDigits(seconds.toString())
+  return formatNumber(seconds)
 }
 
-function addDotEveryThreeDigits(num: string) {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+function formatNumber(num: number) {
+  return new Intl.NumberFormat(i18n.locale.value).format(num)
 }
 </script>
 
@@ -125,7 +124,7 @@ function addDotEveryThreeDigits(num: string) {
                       peer-checked:translate-x-6">
           </div>
         </label>
-        <span>Sync</span>
+        <span>{{ $t('eventPage.sync') }}</span>
       </div>
     </div>
 
@@ -138,7 +137,7 @@ function addDotEveryThreeDigits(num: string) {
         ></div>
       </div>
       <p class="mt-2 font-medium">
-        {{ (progress * 100).toFixed(2) }}%
+        {{ formatNumber(Number((progress * 100).toFixed(2))) }}%
       </p>
     </div>
 
@@ -153,47 +152,47 @@ function addDotEveryThreeDigits(num: string) {
 
       <!-- Elapsed -->
       <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6 transition-colors duration-500" v-if="!isNaN(startDate.getTime())">
-        <h2 class="text-xl font-semibold mb-1">Start date</h2>
-        <p class="mb-4 text-gray-600 dark:text-gray-300">{{ startDate.toLocaleString() }}</p>
+        <h2 class="text-xl font-semibold mb-1">{{ $t('eventPage.startDate') }}</h2>
+        <p class="mb-4 text-gray-600 dark:text-gray-300">{{ startDate.toLocaleString(i18n.locale.value) }}</p>
 
-        <h2 class="text-xl font-semibold mb-3">Elapsed Time</h2>
-        <p class="mb-2 text-gray-600 dark:text-gray-300">{{ formatDuration(elapsedTime) }} passed</p>
+        <h2 class="text-xl font-semibold mb-3">{{ $t('eventPage.elapsedTime') }}</h2>
+        <p class="mb-2 text-gray-600 dark:text-gray-300">{{ formatDuration(elapsedTime) }} {{ $t('eventPage.elapsed') }}</p>
         <p class="mb-2 text-gray-600 dark:text-gray-300 font-medium" v-if="!isNaN(endDate.getTime())">
-          {{ ((elapsedTime / totalTime) * 100).toFixed(2) }}%
+          {{ formatNumber(Number(((elapsedTime / totalTime) * 100).toFixed(2))) }}%
         </p>
 
-        <p class="text-lg font-semibold mt-4 mb-1">Total elapsed time</p>
+        <p class="text-lg font-semibold mt-4 mb-1">{{ $t('eventPage.totalElapsedTime') }}</p>
 
         <div class="text-gray-600 dark:text-gray-300 space-y-1">
-          <p><strong>{{ getTotalYears(elapsedTime) }}</strong> years</p>
-          <p><strong>{{ getTotalMonths(elapsedTime) }}</strong> months</p>
-          <p><strong>{{ getTotalDays(elapsedTime) }}</strong> days</p>
-          <p><strong>{{ getTotalHours(elapsedTime) }}</strong> hours</p>
-          <p><strong>{{ getTotalMinutes(elapsedTime) }}</strong> minutes</p>
-          <p><strong>{{ getTotalSeconds(elapsedTime) }}</strong> seconds</p>
+          <p><strong>{{ getTotalYears(elapsedTime) }}</strong> {{ $t('eventPage.years') }}</p>
+          <p><strong>{{ getTotalMonths(elapsedTime) }}</strong> {{ $t('eventPage.months') }}</p>
+          <p><strong>{{ getTotalDays(elapsedTime) }}</strong> {{ $t('eventPage.days') }}</p>
+          <p><strong>{{ getTotalHours(elapsedTime) }}</strong> {{ $t('eventPage.hours') }}</p>
+          <p><strong>{{ getTotalMinutes(elapsedTime) }}</strong> {{ $t('eventPage.minutes') }}</p>
+          <p><strong>{{ getTotalSeconds(elapsedTime) }}</strong> {{ $t('eventPage.seconds') }}</p>
         </div>
       </div>
 
       <!-- Remaining -->
       <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6 transition-colors duration-500" v-if="!isNaN(endDate.getTime())">
-        <h2 class="text-xl font-semibold mb-1">End date</h2>
-        <p class="mb-4 text-gray-600 dark:text-gray-300">{{ endDate.toLocaleString() }}</p>
+        <h2 class="text-xl font-semibold mb-1">{{ $t('eventPage.endDate') }}</h2>
+        <p class="mb-4 text-gray-600 dark:text-gray-300">{{ endDate.toLocaleString(i18n.locale.value) }}</p>
 
-        <h2 class="text-xl font-semibold mb-3">Remaining Time</h2>
-        <p class="mb-2 text-gray-600 dark:text-gray-300">{{ formatDuration(remainingTime) }} remaining</p>
+        <h2 class="text-xl font-semibold mb-3">{{ $t('eventPage.remainingTime') }}</h2>
+        <p class="mb-2 text-gray-600 dark:text-gray-300">{{ formatDuration(remainingTime) }} {{ $t('eventPage.remaining') }}</p>
         <p class="mb-2 text-gray-600 dark:text-gray-300 font-medium" v-if="!isNaN(startDate.getTime())">
-          {{ ((remainingTime / totalTime) * 100).toFixed(2) }}%
+          {{ formatNumber(Number(((remainingTime / totalTime) * 100).toFixed(2))) }}%
         </p>
 
-        <p class="text-lg font-semibold mt-4 mb-1">Total remaining time</p>
+        <p class="text-lg font-semibold mt-4 mb-1">{{ $t('eventPage.totalRemainingTime') }}</p>
 
         <div class="text-gray-700 dark:text-gray-300 space-y-1">
-          <p><strong>{{ getTotalYears(remainingTime) }}</strong> years</p>
-          <p><strong>{{ getTotalMonths(remainingTime) }}</strong> months</p>
-          <p><strong>{{ getTotalDays(remainingTime) }}</strong> days</p>
-          <p><strong>{{ getTotalHours(remainingTime) }}</strong> hours</p>
-          <p><strong>{{ getTotalMinutes(remainingTime) }}</strong> minutes</p>
-          <p><strong>{{ getTotalSeconds(remainingTime) }}</strong> seconds</p>
+          <p><strong>{{ getTotalYears(remainingTime) }}</strong> {{ $t('eventPage.years') }}</p>
+          <p><strong>{{ getTotalMonths(remainingTime) }}</strong> {{ $t('eventPage.months') }}</p>
+          <p><strong>{{ getTotalDays(remainingTime) }}</strong> {{ $t('eventPage.days') }}</p>
+          <p><strong>{{ getTotalHours(remainingTime) }}</strong> {{ $t('eventPage.hours') }}</p>
+          <p><strong>{{ getTotalMinutes(remainingTime) }}</strong> {{ $t('eventPage.minutes') }}</p>
+          <p><strong>{{ getTotalSeconds(remainingTime) }}</strong> {{ $t('eventPage.seconds') }}</p>
         </div>
       </div>
 
