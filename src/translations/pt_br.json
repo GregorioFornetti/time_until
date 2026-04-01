@@ -18,5 +18,29 @@
         "dateRequiredError": "Data de término ou de início é obrigatória",
         "endDateAfterStartError": "Data de término deve ser após a data de início",
         "titleRequiredError": "Título é obrigatório"
+    },
+
+    "eventPage": {
+        "sync": "Sincronizar",
+        "startDate": "Data de Início",
+        "endDate": "Data de Término",
+        "elapsedTime": "Tempo Decorrido",
+        "elapsed": "Decorrido",
+        "totalElapsedTime": "Tempo Total Decorrido",
+        "years": "Anos",
+        "months": "Meses",
+        "days": "Dias",
+        "hours": "Horas",
+        "minutes": "Minutos",
+        "seconds": "Segundos",
+        "yearAbv": "a",
+        "monthAbv": "m",
+        "dayAbv": "d",
+        "hourAbv": "h",
+        "minuteAbv": "min",
+        "secondAbv": "s",
+        "remainingTime": "Tempo Restante",
+        "remaining": "Restante",
+        "totalRemainingTime": "Tempo Total Restante"
     }
 }
