@@ -18,5 +18,29 @@
         "dateRequiredError": "Start date or end date is required",
         "endDateAfterStartError": "End date must be after start date",
         "titleRequiredError": "Title is required"
+    },
+
+    "eventPage": {
+        "sync": "Sync",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "elapsedTime": "Elapsed Time",
+        "elapsed": "Elapsed",
+        "totalElapsedTime": "Total Elapsed Time",
+        "years": "Years",
+        "months": "Months",
+        "days": "Days",
+        "hours": "Hours",
+        "minutes": "Minutes",
+        "seconds": "Seconds",
+        "yearAbv": "y",
+        "monthAbv": "mo",
+        "dayAbv": "d",
+        "hourAbv": "h",
+        "minuteAbv": "m",
+        "secondAbv": "s",
+        "remainingTime": "Remaining Time",
+        "remaining": "Remaining",
+        "totalRemainingTime": "Total Remaining Time"
     }
 }
