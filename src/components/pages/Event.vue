@@ -8,6 +8,34 @@ const description = router.currentRoute.value.query.description as string
 const startDate = new Date(router.currentRoute.value.query.startDate as string)
 const endDate = new Date(router.currentRoute.value.query.endDate as string)
 
+if (localStorage.events) {
+  const events = JSON.parse(localStorage.events)
+  const curEventIdx = events.findIndex((e: any) => e.title === title)
+  if (curEventIdx !== -1) {
+    events[curEventIdx] = {
+      title,
+      description,
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString()
+    }
+  } else {
+    events.push({
+      title,
+      description,
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString()
+    })
+  }
+  localStorage.events = JSON.stringify(events)
+} else {
+  localStorage.events = JSON.stringify([{
+    title,
+    description,
+    startDate: startDate.toISOString(),
+    endDate: endDate.toISOString()
+  }])
+}
+
 const curDate = ref(new Date())
 const sync = ref(true)
 
