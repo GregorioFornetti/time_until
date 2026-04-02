@@ -44,6 +44,11 @@ const handleSubmit = () => {
         return
     }
 
+    if (localStorage.events && JSON.parse(localStorage.events).findIndex((e: any) => e.title === title.value) !== -1) {
+        errors.value.title = i18n.t('modal.duplicateTitleError')
+        return
+    }
+
     // Redirect to event page with event data as query params (for demo purposes)
     const queryParams = new URLSearchParams({
         title: title.value,
