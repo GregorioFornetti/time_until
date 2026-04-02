@@ -11,6 +11,7 @@ const props = defineProps<{
   descriptionInitText?: string
   startDateInit?: string
   endDateInit?: string
+  oldTitle?: string
   closeModal?: () => void
 }>()
 
@@ -44,19 +45,41 @@ const handleSubmit = () => {
         return
     }
 
-    if (localStorage.events && JSON.parse(localStorage.events).findIndex((e: any) => e.title === title.value) !== -1) {
-        errors.value.title = i18n.t('modal.duplicateTitleError')
-        return
+    if (localStorage.events) {
+        const events = JSON.parse(localStorage.events)
+        if (!props.oldTitle && events.findIndex((e: any) => e.title === title.value) !== -1) {
+            errors.value.title = i18n.t('modal.duplicateTitleError')
+            return
+        }
+        
+        if (props.oldTitle && props.oldTitle !== title.value && events.findIndex((e: any) => e.title === title.value) !== -1) {
+            errors.value.title = i18n.t('modal.duplicateTitleError')
+            return
+        }
     }
 
-    // Redirect to event page with event data as query params (for demo purposes)
-    const queryParams = new URLSearchParams({
-        title: title.value,
-        description: description.value,
-        startDate: startDate.value,
-        endDate: endDate.value
-    }).toString()
-    router.push(`/event?${queryParams}`)
+    if (props.oldTitle) {
+        const events = JSON.parse(localStorage.events)
+        const curEventIdx = events.findIndex((e: any) => e.title === props.oldTitle)
+        if (curEventIdx !== -1) {
+            events[curEventIdx] = {
+                title: title.value,
+                description: description.value,
+                startDate: startDate.value,
+                endDate: endDate.value
+            }
+        } 
+        localStorage.events = JSON.stringify(events)
+    }
+    else {
+        const queryParams = new URLSearchParams({
+            title: title.value,
+            description: description.value,
+            startDate: startDate.value,
+            endDate: endDate.value
+        }).toString()
+        router.push(`/event?${queryParams}`)
+    }
 }
 </script>
 
