@@ -17,7 +17,8 @@
         "cancel": "Cancelar",
         "dateRequiredError": "Data de término ou de início é obrigatória",
         "endDateAfterStartError": "Data de término deve ser após a data de início",
-        "titleRequiredError": "Título é obrigatório"
+        "titleRequiredError": "Título é obrigatório",
+        "duplicateTitleError": "Um evento com este título já existe"
     },
 
     "eventPage": {
