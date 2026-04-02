@@ -17,7 +17,8 @@
         "cancel": "Cancel",
         "dateRequiredError": "Start date or end date is required",
         "endDateAfterStartError": "End date must be after start date",
-        "titleRequiredError": "Title is required"
+        "titleRequiredError": "Title is required",
+        "duplicateTitleError": "An event with this title already exists"
     },
 
     "eventPage": {
