@@ -4,6 +4,8 @@ import { ref } from 'vue';
 import { router } from '../../plugins/router';
 import { i18n } from '../../plugins/i18n';
 
+const emit = defineEmits(['update'])
+
 const props = defineProps<{
   type: 'create' | 'edit'
   show: boolean
@@ -70,6 +72,8 @@ const handleSubmit = () => {
             }
         } 
         localStorage.events = JSON.stringify(events)
+        emit('update')
+        props.closeModal?.()
     }
     else {
         const queryParams = new URLSearchParams({
