@@ -3,6 +3,10 @@
         "title": "Time until"
     },
 
+    "alert": {
+        "successMessage": "Saved successfully!"
+    },
+
     "modal": {
         "createTitle": "Create Event",
         "editTitle": "Edit Event",
