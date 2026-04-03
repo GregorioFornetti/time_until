@@ -7,7 +7,6 @@ import { i18n } from '../../plugins/i18n';
 const emit = defineEmits(['update'])
 
 const props = defineProps<{
-  type: 'create' | 'edit'
   show: boolean
   titleInitText?: string
   descriptionInitText?: string
@@ -89,7 +88,7 @@ const handleSubmit = () => {
 
 <template>
     <BaseModal
-        :title="props.type === 'create' ? i18n.t('modal.createTitle') : i18n.t('modal.editTitle')"
+        :title="!props.oldTitle ? i18n.t('modal.createTitle') : i18n.t('modal.editTitle')"
         :show="show"
         :closeModal="closeModal"
     >
@@ -163,7 +162,7 @@ const handleSubmit = () => {
                     type="button" @click="formRef?.requestSubmit()"
                     class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-500 transition"
                 >
-                    {{ props.type === 'create' ? i18n.t('modal.create') : i18n.t('modal.save') }}
+                    {{!oldTitle ? i18n.t('modal.create') : i18n.t('modal.save') }}
                 </button>
             </div>
         </template>
