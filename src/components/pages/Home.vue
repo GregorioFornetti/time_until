@@ -34,8 +34,8 @@ const triggerAlert = () => {
     />
 
     <EventCard
-        title="Sample Event"
-        description="This is a sample event description to demonstrate the EventCard component."
+        title="Sample Event asdas ds dasd asd asd asd asdasdas asd asd "
+        description="This is a sample event description to demonstrate the EventCard component. Testando se aparece o bagulho e ai mermaoooo"
         startDate="2024-07-01"
         endDate="2024-07-02"
     />
