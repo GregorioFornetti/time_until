@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import EventModal from '../modal/EventModal.vue';
 import SuccessAlert from '../SuccessAlert.vue';
 import { i18n } from '../../plugins/i18n'
+import EventCard from '../EventCard.vue';
 
 const showModal = ref(true)
 const showAlert = ref(false)
@@ -30,6 +31,13 @@ const triggerAlert = () => {
         :show="showModal"
         @update="triggerAlert"
         :closeModal="closeModal"
+    />
+
+    <EventCard
+        title="Sample Event"
+        description="This is a sample event description to demonstrate the EventCard component."
+        startDate="2024-07-01"
+        endDate="2024-07-02"
     />
 </template>
 
