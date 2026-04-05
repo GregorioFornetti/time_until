@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { router } from '../../plugins/router';
+import { i18n } from '../../plugins/i18n';
 
 const props = defineProps<{
   title: string
@@ -10,7 +11,7 @@ const props = defineProps<{
 
 function formatDate(date: string | Date) {
   if (!date) return ""
-  return new Date(date).toLocaleDateString()
+  return new Date(date).toLocaleDateString(i18n.locale.value)
 }
 
 function redirectToEventPage() {
