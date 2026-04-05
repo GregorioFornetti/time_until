@@ -4,14 +4,20 @@ import { ref } from 'vue';
 import { router } from '../../plugins/router';
 import { i18n } from '../../plugins/i18n';
 
-const emit = defineEmits(['update'])
+const emit = defineEmits([
+  'update:title',
+  'update:description',
+  'update:startDate',
+  'update:endDate',
+  'update'
+])
 
 const props = defineProps<{
   show: boolean
-  titleInitText?: string
-  descriptionInitText?: string
-  startDateInit?: string
-  endDateInit?: string
+  title: string
+  description: string
+  startDate: string
+  endDate: string
   oldTitle?: string
   closeModal?: () => void
 }>()
@@ -21,21 +27,31 @@ const errors = ref({
   date: ''
 })
 
-const title = ref(props.titleInitText || '')
-const description = ref(props.descriptionInitText || '')
-const startDate = ref(props.startDateInit || '')
-const endDate = ref(props.endDateInit || '')
+import { computed } from 'vue'
+
+const title = computed({
+  get: () => props.title,
+  set: (val) => emit('update:title', val)
+})
+
+const description = computed({
+  get: () => props.description,
+  set: (val) => emit('update:description', val)
+})
+
+const startDate = computed({
+  get: () => props.startDate,
+  set: (val) => emit('update:startDate', val)
+})
+
+const endDate = computed({
+  get: () => props.endDate,
+  set: (val) => emit('update:endDate', val)
+})
+
 const formRef = ref<HTMLFormElement | null>(null)
 
 const handleSubmit = () => {
-    
-    console.log({
-        title: title.value,
-        description: description.value,
-        startDate: startDate.value,
-        endDate: endDate.value
-    })
-
     errors.value.title =  !title.value.trim() ? i18n.t('modal.titleRequiredError') : ''
     errors.value.date = (!endDate.value.trim() && !startDate.value.trim()) ? i18n.t('modal.dateRequiredError') : ''
 
