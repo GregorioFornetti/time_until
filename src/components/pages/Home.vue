@@ -7,20 +7,44 @@ import SuccessAlert from '../alerts/SuccessAlert.vue';
 import EventCard from '../cards/EventCard.vue';
 import AddEventCard from '../cards/AddEventCard.vue';
 
+
+interface EventInfo {
+  title: string
+  description?: string
+  startDate?: string
+  endDate?: string
+}
+
+
+function getEventsFromLocalStorage(): EventInfo[] {
+  const eventsJson = localStorage.getItem('events')
+  if (!eventsJson) {
+    return []
+  }
+  try {
+    return JSON.parse(eventsJson)
+  } catch (e) {
+    console.error('Failed to parse events from localStorage', e)
+    return []
+  }
+}
+
+function closeModal() {
+    showModal.value = false
+}
+
+function triggerAlert() {
+  showAlert.value = true
+}
+
+
+const events = ref<EventInfo[]>(getEventsFromLocalStorage())
 const showModal = ref(true)
 const showAlert = ref(false)
 const title = ref('')
 const description = ref('')
 const startDate = ref('')
 const endDate = ref('')
-
-function closeModal() {
-    showModal.value = false
-}
-
-const triggerAlert = () => {
-  showAlert.value = true
-}
 </script>
 
 <template>
@@ -36,7 +60,7 @@ const triggerAlert = () => {
         v-model:description="description"
         v-model:startDate="startDate"
         v-model:endDate="endDate"
-        
+
         old-title="AAAAA"
         :show="showModal"
         @update="triggerAlert"
