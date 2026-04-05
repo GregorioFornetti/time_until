@@ -31,13 +31,13 @@ function redirectToEventPage() {
     @click="redirectToEventPage"
   >
     <h3
-      class="text-lg font-semibold text-gray-900 dark:text-gray-100 line-clamp-2"
+      class="text-lg font-semibold text-gray-900 dark:text-gray-100 line-clamp-2 h-[3.5rem]"
     >
       {{ title }}
     </h3>
     <p
       v-if="description"
-      class="mt-2 text-sm text-gray-600 dark:text-gray-400 line-clamp-3"
+      class="mt-2 text-sm text-gray-600 dark:text-gray-400 line-clamp-3 h-[3.75rem]"
     >
       {{ description }}
     </p>
@@ -54,10 +54,10 @@ function redirectToEventPage() {
     </div>
 
     <div
-      class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100"
+      class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100"
     >
       <button
-        @click="$emit('edit')"
+        @click.stop="$emit('edit')"
         class="rounded-lg px-2 py-1 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-600"
       >
         <font-awesome-icon
@@ -66,7 +66,7 @@ function redirectToEventPage() {
         />
       </button>
       <button
-        @click="$emit('delete')"
+        @click.stop="$emit('delete')"
         class="rounded-lg px-2 py-1 bg-red-100 hover:bg-red-200 dark:bg-red-900 dark:hover:bg-red-700"
       >
         <font-awesome-icon
