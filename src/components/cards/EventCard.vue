@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { router } from '../../plugins/router';
 
-defineProps<{
+const props = defineProps<{
   title: string
   description?: string
-  startDate?: string | Date
-  endDate?: string | Date
+  startDate?: string
+  endDate?: string
 }>()
 
 function formatDate(date: string | Date) {
@@ -12,11 +13,22 @@ function formatDate(date: string | Date) {
   return new Date(date).toLocaleDateString()
 }
 
+function redirectToEventPage() {
+  const queryParams = new URLSearchParams({
+      title: props.title,
+      description: props.description || '',
+      startDate: props.startDate || '',
+      endDate: props.endDate || ''
+  }).toString()
+  router.push(`/event?${queryParams}`)
+}
+
 </script>
 
 <template>
   <div
-    class="group relative rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md dark:border-gray-700 dark:bg-gray-800 w-64 h-56"
+    class="group relative p-4 w-64 h-56 rounded-2xl border-2 border-gray-300 bg-white cursor-pointer transition hover:border-gray-400 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-500 dark:hover:bg-gray-700"
+    @click="redirectToEventPage"
   >
     <h3
       class="text-lg font-semibold text-gray-900 dark:text-gray-100 line-clamp-2"
@@ -46,7 +58,7 @@ function formatDate(date: string | Date) {
     >
       <button
         @click="$emit('edit')"
-        class="rounded-lg px-2 py-1 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+        class="rounded-lg px-2 py-1 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-600"
       >
         <font-awesome-icon
           icon="fa-solid fa-pen"
@@ -55,7 +67,7 @@ function formatDate(date: string | Date) {
       </button>
       <button
         @click="$emit('delete')"
-        class="rounded-lg px-2 py-1 bg-red-100 hover:bg-red-200 dark:bg-red-900/40 dark:hover:bg-red-900/60"
+        class="rounded-lg px-2 py-1 bg-red-100 hover:bg-red-200 dark:bg-red-900 dark:hover:bg-red-700"
       >
         <font-awesome-icon
           icon="fa-solid fa-trash"
