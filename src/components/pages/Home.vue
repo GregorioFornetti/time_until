@@ -68,7 +68,16 @@ const oldTitle = ref('')
             }"
         />
 
-        <AddEventCard @click="showModal = true" />
+        <AddEventCard 
+            @click="() => {
+              title = ''
+              description = ''
+              startDate = ''
+              endDate = ''
+              oldTitle = ''
+              showModal = true
+            }" 
+        />
     </div>
 
 
