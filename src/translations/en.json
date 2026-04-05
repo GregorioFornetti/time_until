@@ -4,7 +4,8 @@
     },
 
     "alert": {
-        "successMessage": "Saved successfully!"
+        "updateSuccessMessage": "Saved successfully!",
+        "deleteSuccessMessage": "Deleted successfully!"
     },
 
     "modal": {
