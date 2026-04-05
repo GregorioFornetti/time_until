@@ -15,15 +15,15 @@ if (localStorage.events) {
     events[curEventIdx] = {
       title,
       description,
-      startDate: startDate.toISOString(),
-      endDate: endDate.toISOString()
+      startDate: !isNaN(startDate.getTime()) ? startDate.toISOString() : '',
+      endDate: !isNaN(endDate.getTime()) ? endDate.toISOString() : ''
     }
   } else {
     events.push({
       title,
       description,
-      startDate: startDate.toISOString(),
-      endDate: endDate.toISOString()
+      startDate: !isNaN(startDate.getTime()) ? startDate.toISOString() : '',
+      endDate: !isNaN(endDate.getTime()) ? endDate.toISOString() : ''
     })
   }
   localStorage.events = JSON.stringify(events)
@@ -31,8 +31,8 @@ if (localStorage.events) {
   localStorage.events = JSON.stringify([{
     title,
     description,
-    startDate: startDate.toISOString(),
-    endDate: endDate.toISOString()
+    startDate: !isNaN(startDate.getTime()) ? startDate.toISOString() : '',
+    endDate: !isNaN(endDate.getTime()) ? endDate.toISOString() : ''
   }])
 }
 
