@@ -181,7 +181,7 @@ function formatNumber(num: number) {
       <!-- Elapsed -->
       <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6 transition-colors duration-500" v-if="!isNaN(startDate.getTime())">
         <h2 class="text-xl font-semibold mb-1">{{ $t('eventPage.startDate') }}</h2>
-        <p class="mb-4 text-gray-600 dark:text-gray-300">{{ startDate.toLocaleString(i18n.locale.value) }}</p>
+        <p class="mb-4 text-gray-600 dark:text-gray-300">{{ startDate.toLocaleString(i18n.locale.value, { year: 'numeric', month: 'short', day: 'numeric' }) }}</p>
 
         <h2 class="text-xl font-semibold mb-3">{{ $t('eventPage.elapsedTime') }}</h2>
         <p class="mb-2 text-gray-600 dark:text-gray-300">{{ formatDuration(elapsedTime) }} {{ $t('eventPage.elapsed') }}</p>
@@ -204,7 +204,7 @@ function formatNumber(num: number) {
       <!-- Remaining -->
       <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6 transition-colors duration-500" v-if="!isNaN(endDate.getTime())">
         <h2 class="text-xl font-semibold mb-1">{{ $t('eventPage.endDate') }}</h2>
-        <p class="mb-4 text-gray-600 dark:text-gray-300">{{ endDate.toLocaleString(i18n.locale.value) }}</p>
+        <p class="mb-4 text-gray-600 dark:text-gray-300">{{ endDate.toLocaleString(i18n.locale.value, { year: 'numeric', month: 'short', day: 'numeric' }) }}</p>
 
         <h2 class="text-xl font-semibold mb-3">{{ $t('eventPage.remainingTime') }}</h2>
         <p class="mb-2 text-gray-600 dark:text-gray-300">{{ formatDuration(remainingTime) }} {{ $t('eventPage.remaining') }}</p>
