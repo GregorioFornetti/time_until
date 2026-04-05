@@ -9,6 +9,10 @@ import AddEventCard from '../cards/AddEventCard.vue';
 
 const showModal = ref(true)
 const showAlert = ref(false)
+const title = ref('')
+const description = ref('')
+const startDate = ref('')
+const endDate = ref('')
 
 function closeModal() {
     showModal.value = false
@@ -28,6 +32,11 @@ const triggerAlert = () => {
     />
 
     <EventModal
+        v-model:title="title"
+        v-model:description="description"
+        v-model:startDate="startDate"
+        v-model:endDate="endDate"
+        
         old-title="AAAAA"
         :show="showModal"
         @update="triggerAlert"
