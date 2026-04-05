@@ -29,6 +29,26 @@ function getEventsFromLocalStorage(): EventInfo[] {
   }
 }
 
+function editEvent(event: EventInfo) {
+  title.value = event.title
+  description.value = event.description || ''
+  startDate.value = event.startDate || ''
+  endDate.value = event.endDate || ''
+  oldTitle.value = event.title
+  showModal.value = true
+  successMessage.value = i18n.t('alert.updateSuccessMessage')
+}
+
+function deleteEvent(event: EventInfo) {
+  const index = events.value.findIndex(e => e.title === event.title)
+  if (index !== -1) {
+    events.value.splice(index, 1)
+    localStorage.setItem('events', JSON.stringify(events.value))
+    successMessage.value = i18n.t('alert.deleteSuccessMessage')
+    triggerAlert()
+  }
+}
+
 function closeModal() {
     showModal.value = false
 }
@@ -46,6 +66,7 @@ const description = ref('')
 const startDate = ref('')
 const endDate = ref('')
 const oldTitle = ref('')
+const successMessage = ref('')
 </script>
 
 <template>
@@ -57,15 +78,8 @@ const oldTitle = ref('')
             :description="event.description"
             :startDate="event.startDate"
             :endDate="event.endDate"
-            @edit="() => {
-              console.log(event.startDate)
-              title = event.title
-              description = event.description || ''
-              startDate = event.startDate || ''
-              endDate = event.endDate || ''
-              oldTitle = event.title
-              showModal = true
-            }"
+            @edit="() => editEvent(event)"
+            @delete="() => deleteEvent(event)"
         />
 
         <AddEventCard 
@@ -84,7 +98,7 @@ const oldTitle = ref('')
 
     <SuccessAlert
         v-model:show="showAlert"
-        :message="i18n.t('alert.successMessage')"
+        :message="successMessage"
         :duration="4000"
         class="mt-4"
     />
