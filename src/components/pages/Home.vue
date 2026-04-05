@@ -49,8 +49,14 @@ function deleteEvent(event: EventInfo) {
   }
 }
 
+function onUpdate() {
+  events.value = getEventsFromLocalStorage()
+  successMessage.value = i18n.t('alert.updateSuccessMessage')
+  triggerAlert()
+}
+
 function closeModal() {
-    showModal.value = false
+  showModal.value = false
 }
 
 function triggerAlert() {
@@ -110,7 +116,7 @@ const successMessage = ref('')
 
         :old-title="oldTitle"
         :show="showModal"
-        @update="triggerAlert"
+        @update="onUpdate"
         :closeModal="closeModal"
     />
 </template>
