@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import EventModal from '../modal/EventModal.vue';
-import SuccessAlert from '../SuccessAlert.vue';
 import { i18n } from '../../plugins/i18n'
-import EventCard from '../EventCard.vue';
+
+import EventModal from '../modal/EventModal.vue';
+import SuccessAlert from '../alerts/SuccessAlert.vue';
+import EventCard from '../cards/EventCard.vue';
+import AddEventCard from '../cards/AddEventCard.vue';
 
 const showModal = ref(true)
 const showAlert = ref(false)
@@ -26,7 +28,6 @@ const triggerAlert = () => {
     />
 
     <EventModal
-        type="create"
         old-title="AAAAA"
         :show="showModal"
         @update="triggerAlert"
@@ -39,6 +40,8 @@ const triggerAlert = () => {
         startDate="2024-07-01"
         endDate="2024-07-02"
     />
+
+    <AddEventCard @click="showModal = true" />
 </template>
 
 <style scoped>

@@ -1,5 +1,5 @@
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faTrash, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faPen, faTrash)
+library.add(faPen, faTrash, faPlus, faXmark)
