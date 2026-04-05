@@ -32,8 +32,8 @@ function getEventsFromLocalStorage(): EventInfo[] {
 function editEvent(event: EventInfo) {
   title.value = event.title
   description.value = event.description || ''
-  startDate.value = event.startDate || ''
-  endDate.value = event.endDate || ''
+  startDate.value = event.startDate ? new Date(event.startDate).toISOString().slice(0, 16) : ''
+  endDate.value = event.endDate ? new Date(event.endDate).toISOString().slice(0, 16) : ''
   oldTitle.value = event.title
   showModal.value = true
   successMessage.value = i18n.t('alert.updateSuccessMessage')
