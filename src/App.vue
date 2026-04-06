@@ -2,6 +2,7 @@
 import { i18n } from './plugins/i18n';
 import { router } from './plugins/router';
 import { ref } from 'vue';
+import Header from './components/Header.vue';
 
 
 if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -20,6 +21,8 @@ if (localStorage.locale) {
 
 <template>
   <div class="main-container">
+    <Header />
+
     <router-view />
   </div>
 </template>
