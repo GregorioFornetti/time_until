@@ -5,7 +5,8 @@
 
     "alert": {
         "updateSuccessMessage": "Saved successfully!",
-        "deleteSuccessMessage": "Deleted successfully!"
+        "deleteSuccessMessage": "Deleted successfully!",
+        "copySuccessMessage": "URL copied to clipboard!"
     },
 
     "modal": {
