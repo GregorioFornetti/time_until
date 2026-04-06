@@ -4,9 +4,12 @@ import { i18n } from '../plugins/i18n'
 import { RouterLink } from 'vue-router'
 import { router } from '../plugins/router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import SuccessAlert from './alerts/SuccessAlert.vue'
 
 const isDark = ref(localStorage.theme === 'dark')
 const menuOpen = ref(false)
+const showAlert = ref(false)
+const successMessage = ref('')
 
 function toggleTheme() {
   isDark.value = !isDark.value
@@ -22,6 +25,14 @@ function languageChanged() {
   localStorage.setItem('locale', i18n.locale.value)
 }
 
+function copyUrlToClipboard() {
+  const url = window.location.href
+  navigator.clipboard.writeText(url).then(() => {
+    successMessage.value = i18n.t('alert.copySuccessMessage')
+    showAlert.value = true
+  })
+}
+
 </script>
 
 <template>
@@ -33,6 +44,9 @@ function languageChanged() {
           <RouterLink v-if="router.currentRoute.value.path !== '/'" to="/" >
             <FontAwesomeIcon icon="fa-solid fa-chevron-left" class="text-gray-700 dark:text-gray-200 btn_hover" />
           </RouterLink>
+          <button @click="copyUrlToClipboard" v-if="router.currentRoute.value.path !== '/'" to="/">
+            <FontAwesomeIcon icon="fa-solid fa-link" class="text-gray-700 dark:text-gray-200 btn_hover" />
+          </button>
         </div>
 
         <nav class="hidden md:flex space-x-8 text-sm font-medium">
@@ -81,6 +95,12 @@ function languageChanged() {
       </nav>
     </div>
   </header>
+
+  <SuccessAlert
+    v-model:show="showAlert"
+    :message="successMessage"
+    :duration="4000"
+  />
 </template>
 
 <style scoped>
