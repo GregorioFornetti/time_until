@@ -15,13 +15,15 @@ export const router = createRouter({
   routes,
 })
 
-router.afterEach((to) => {
+export function updateDocumentTitle(to: any) {
   const siteName = i18n.t('router.title') as string
   
-  if (to.path === '/event' && to.query.name) {
-    const name = (to.query.name as string).toLowerCase()
+  if (to.path === '/event' && to.query.title) {
+    const name = (to.query.title as string).toLowerCase()
     document.title = `${siteName} ${name}`
   } else {
-    document.title = `${siteName} ?`
+    document.title = `${siteName}`
   }
-})
+}
+
+router.afterEach(updateDocumentTitle)
