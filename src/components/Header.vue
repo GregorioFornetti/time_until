@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { watch, ref } from 'vue'
 import { i18n } from '../plugins/i18n'
 import { RouterLink } from 'vue-router'
 import { router } from '../plugins/router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import SuccessAlert from './alerts/SuccessAlert.vue'
+import { updateDocumentTitle } from '../plugins/router'
+import { useRoute } from 'vue-router'
 
 const isDark = ref(localStorage.theme === 'dark')
 const menuOpen = ref(false)
@@ -23,6 +25,8 @@ function toggleMenu() {
 
 function languageChanged() {
   localStorage.setItem('locale', i18n.locale.value)
+  updateDocumentTitle(router.currentRoute.value)
+  documentTitle.value = document.title
 }
 
 function copyUrlToClipboard() {
@@ -33,6 +37,15 @@ function copyUrlToClipboard() {
   })
 }
 
+const route = useRoute()
+const documentTitle = ref(document.title)
+
+watch(
+  () => route.fullPath,
+  () => {
+    documentTitle.value = document.title
+  }
+)
 </script>
 
 <template>
@@ -49,8 +62,8 @@ function copyUrlToClipboard() {
           </button>
         </div>
 
-        <nav class="hidden md:flex space-x-8 text-sm font-medium">
-          
+        <nav class="hidden md:block flex-1 min-w-0 text-xl font-medium dark:text-gray-200 truncate">
+          {{ documentTitle }}
         </nav>
 
         <div class="hidden md:flex items-center space-x-4 w-1/4 justify-end">
@@ -78,7 +91,8 @@ function copyUrlToClipboard() {
     <!-- Mobile menu -->
     <div v-if="menuOpen" class="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
       <nav class="flex flex-col px-4 py-4 space-y-4">
-        <div class="flex items-center justify-between pt-4">
+        <span class="text-xl font-medium dark:text-gray-200 text-center">{{ documentTitle }}</span>
+        <div class="flex items-center justify-between">
           <button @click="toggleTheme" class="btn_hover">
             <span v-if="isDark">
               <font-awesome-icon icon="fa-solid fa-moon" class="text-gray-500" />
