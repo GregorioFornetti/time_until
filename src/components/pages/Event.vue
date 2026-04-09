@@ -125,10 +125,9 @@ function formatNumber(num: number) {
 </script>
 
 <template>
-  <div class="max-w-5xl mx-auto px-4 py-8 text-center
-              bg-white text-gray-900
-              dark:bg-gray-900 dark:text-gray-100
-              transition-colors duration-500">
+  <div class="mt-24 mx-auto p-8 text-center
+              bg-gray-100 
+              dark:bg-gray-800 dark:text-gray-100" style="max-width: 700px;">
 
     <!-- Title -->
     <div class="mb-6">
@@ -179,7 +178,7 @@ function formatNumber(num: number) {
     >
 
       <!-- Elapsed -->
-      <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6 transition-colors duration-500" v-if="!isNaN(startDate.getTime())">
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 transition-colors duration-500" v-if="!isNaN(startDate.getTime())">
         <h2 class="text-xl font-semibold mb-1">{{ $t('eventPage.startDate') }}</h2>
         <p class="mb-4 text-gray-600 dark:text-gray-300">{{ startDate.toLocaleString(i18n.locale.value, { year: 'numeric', month: 'short', day: 'numeric' }) }}</p>
 
@@ -202,7 +201,7 @@ function formatNumber(num: number) {
       </div>
 
       <!-- Remaining -->
-      <div class="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6 transition-colors duration-500" v-if="!isNaN(endDate.getTime())">
+      <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 transition-colors duration-500" v-if="!isNaN(endDate.getTime())">
         <h2 class="text-xl font-semibold mb-1">{{ $t('eventPage.endDate') }}</h2>
         <p class="mb-4 text-gray-600 dark:text-gray-300">{{ endDate.toLocaleString(i18n.locale.value, { year: 'numeric', month: 'short', day: 'numeric' }) }}</p>
 
