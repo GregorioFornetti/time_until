@@ -62,7 +62,7 @@ watch(
           </button>
         </div>
 
-        <nav class="hidden md:block flex-1 min-w-0 text-xl font-medium dark:text-gray-200 truncate">
+        <nav class="hidden md:block flex-1 min-w-0 text-xl font-medium dark:text-gray-200 truncate text-center">
           {{ documentTitle }}
         </nav>
 
