@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { i18n } from './plugins/i18n';
-import { router } from './plugins/router';
-import { ref } from 'vue';
 import Header from './components/Header.vue';
 
 
