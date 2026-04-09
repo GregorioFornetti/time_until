@@ -112,53 +112,74 @@ const handleSubmit = () => {
             <form ref="formRef" @submit.prevent="handleSubmit">
                 <!-- Title -->
                 <div class="mt-4">
-                    <label class="block mb-1 text-lg font-medium text-gray-300">
+                    <label class="block mb-1 text-lg font-medium text-gray-700 dark:text-gray-300">
                         {{ $t('modal.title') }} <span class="text-red-500">*</span>
                     </label>
                     <input
                         type="text"
                         v-model="title"
                         :placeholder="i18n.t('modal.titlePlaceholder')"
-                        :class="['w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500', errors.title ? 'border-red-500 ring-red-500' : '']"
+                        :class="[
+                            'w-full px-3 py-2 rounded-lg border bg-white text-gray-900 placeholder-gray-400',
+                            'dark:bg-gray-900 dark:text-gray-100 dark:placeholder-gray-500',
+                            'border-gray-300 dark:border-gray-700',
+                            'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
+                            errors.title ? 'border-red-500 ring-red-500' : ''
+                        ]"
                     />
                     <p v-if="errors.title" class="mt-1 text-sm text-red-500">{{ errors.title }}</p>
                 </div>
 
                 <!-- Description -->
                 <div class="mt-4">
-                    <label class="block mb-1 text-lg font-medium text-gray-300">
+                    <label class="block mb-1 text-lg font-medium text-gray-700 dark:text-gray-300">
                         {{ $t('modal.description') }}
                     </label>
                     <textarea
                         v-model="description"
                         rows="3"
                         :placeholder="i18n.t('modal.descriptionPlaceholder')"
-                        class="w-full px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        class="w-full px-3 py-2 rounded-lg border bg-white text-gray-900 placeholder-gray-400
+                            dark:bg-gray-900 dark:text-gray-100 dark:placeholder-gray-500
+                            border-gray-300 dark:border-gray-700
+                            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     ></textarea>
                 </div>
 
                 <!-- Start Date -->
                 <div class="mt-4">
-                    <label class="block mb-1 text-lg font-medium text-gray-300">
-                        {{ $t('modal.startDate') }} <span class="text-red-500">**</span>
+                    <label class="block mb-1 text-lg font-medium text-gray-700 dark:text-gray-300">
+                        {{ $t('modal.startDate') }} <span class="text-red-500">*</span>
                     </label>
                     <input
                         v-model="startDate"
                         type="datetime-local"
-                        :class="['px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500', errors.date ? 'border-red-500 ring-red-500' : '']"
+                        :class="[
+                            'px-3 py-2 rounded-lg border bg-white text-gray-900',
+                            'dark:bg-gray-900 dark:text-gray-100',
+                            'border-gray-300 dark:border-gray-700',
+                            'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
+                            errors.date ? 'border-red-500 ring-red-500' : ''
+                        ]"
                     />
                     <p v-if="errors.date" class="mt-1 text-sm text-red-500">{{ errors.date }}</p>
                 </div>
 
                 <!-- End Date -->
                 <div class="mt-4">
-                    <label class="block mb-1 text-lg font-medium text-gray-300">
-                        {{ $t('modal.endDate') }} <span class="text-red-500">**</span>
+                    <label class="block mb-1 text-lg font-medium text-gray-700 dark:text-gray-300">
+                        {{ $t('modal.endDate') }} <span class="text-red-500">*</span>
                     </label>
                     <input
                         type="datetime-local"
                         v-model="endDate"
-                        :class="['px-3 py-2 rounded-lg border border-gray-700 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500', errors.date ? 'border-red-500 ring-red-500' : '']"
+                        :class="[
+                            'px-3 py-2 rounded-lg border bg-white text-gray-900',
+                            'dark:bg-gray-900 dark:text-gray-100',
+                            'border-gray-300 dark:border-gray-700',
+                            'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
+                            errors.date ? 'border-red-500 ring-red-500' : ''
+                        ]"
                     />
                     <p v-if="errors.date" class="mt-1 text-sm text-red-500">{{ errors.date }}</p>
                 </div>
